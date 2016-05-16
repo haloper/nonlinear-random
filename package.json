@@ -1,0 +1,19 @@
+{
+  "name": "log-random",
+  "version": "0.0.1",
+  "description": "Random with log",
+  "main": "src/log-random.js",
+  "keywords": [
+    "random",
+    "math",
+    "log"
+  ],
+  "maintainers": [
+    {
+      "name": "haloper",
+      "email": "haloper20@gmail.com"
+    }
+  ],
+  "author": "haloper",
+  "license": "MIT"
+}
