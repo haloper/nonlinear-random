@@ -4,9 +4,10 @@ Javascript random halper. It's usefull when you want to generate random number l
 ## Sample
 
 ```javascript
-var random = window.Random.noConflict();
+var Random = window.Random.noConflict();
 
-random(1, 20); // Generate random number lineary 1 <= x <=20
+var ran = Random(1, 20); // Generate random number lineary 1 <= x <=20
+var number = ran.nextInt();
 /*** Random number count : total 1000
 number 	: 	count
 1		: 	50
@@ -31,7 +32,8 @@ number 	: 	count
 20		:	49
 ***/
 
-random(1, 20, 2); //Generate random number log-linearly 1 <= x <=20
+var ran = Random(1, 20).transform(Random.transform.log2, 1, 2); //Generate random number log-linearly 1 <= x <=20
+var number = ran.nextInt();
 /*** Random number count : total 1000
 number 	: 	count
 1		: 	21
@@ -54,5 +56,31 @@ number 	: 	count
 18		: 	67
 19		: 	80
 20		: 	85
+***/
+
+var ran = Random(1, 20).transform(Random.transform.square, 0, 2); //Generate random number (x^2) 1 <= x <=20
+var number = ran.nextInt();
+/*** Random number count : total 1000
+number 	: 	count
+1		:	220
+2		:	98
+3		:	60
+4		:	71
+5		:	42
+6		:	47
+7		:	47
+8		:	45
+9		:	47
+10		:	37
+11		:	37
+12		:	33
+13		:	30
+14		:	33
+15		:	34
+16		:	19
+17		:	23
+18		:	19
+19		:	33
+20		:	25
 ***/
 ```
