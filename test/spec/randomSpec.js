@@ -24,6 +24,12 @@ describe("Random", function() {
 			return result;	
 		}
 
+		function showMap(map) {
+			for(var key in map) { 
+			    console.log(key + "	:	" + map[key]);
+			}
+		}
+
 		it("scale test", function() {
 			var ran = Random(0, 10);
 			expect(ran.scale(1, 2, 0, 10, 1)).toBe(0);
@@ -46,26 +52,53 @@ describe("Random", function() {
 			})).toBe(true);
 		});
 
-		it("Get log random by min, max", function() {
-			var ran = Random(1, 20).transform(Random.transform.log(3), 1, 2);
+		it("Get random from slope transform", function() {
+			var ran = Random(1, 20).slopeTransform();
 			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
-			expect(map[10] > 0 && map[20] > 0 && map[10] < map[20]).toBe(true);
-
-			var ran2 = Random(1, 20).transform(Random.transform.log2, 1, 2);
-			var map2 = repeatToMap(function() { return ran2.nextInt(); }, 1000);
-			expect(map2[10] > 0 && map2[20] > 0 && map2[10] < map2[20]).toBe(true);
+			expect(map[1] > 0 && map[20] > 0 
+				&& map[1] < map[20]).toBe(true);
+			// showMap(map);
 		});
 
-		it("Get square random by min, max", function() {
-			var ran = Random(1, 20).transform(Random.transform.square, 0, 2);
+		it("Get random from slope-reverse transform", function() {
+			var ran = Random(1, 20).slopeReverseTransform();
 			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
-			expect(map[1] > 0 && map[20] > 0 && map[1] > map[20]).toBe(true);
-
-			var ran2 = Random(1, 20).transform(function(x) { return x * x }, 0, 2);
-			var map2 = repeatToMap(function() { return ran2.nextInt(); }, 1000);
-			expect(map2[1] > 0 && map2[20] > 0 && map2[1] > map2[20]).toBe(true);
+			expect(map[1] > 0 && map[20] > 0 
+				&& map[1] > map[20]).toBe(true);
+			// showMap(map);
 		});
 
+		it("Get random from concave slope transform", function() {
+			var ran = Random(1, 20).concaveSlopeTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[20] > 0 
+				&& map[1] < map[20]).toBe(true);
+			// showMap(map);
+		});
+
+		it("Get random from concave slope-reverse transform", function() {
+			var ran = Random(1, 20).concaveSlopeReverseTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[20] > 0 
+				&& map[1] > map[20]).toBe(true);
+			// showMap(map);
+		});
+
+		it("Get random from hourglass transform", function() {
+			var ran = Random(1, 20).hourglassTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
+				&& map[10] < map[20] && map[10] < map[1]).toBe(true);
+			// showMap(map);
+		});
+
+		it("Get random from d transform", function() {
+			var ran = Random(1, 20).dTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
+				&& map[10] > map[20] && map[10] > map[1]).toBe(true);
+			// showMap(map);
+		});
 
 
 

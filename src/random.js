@@ -41,18 +41,24 @@
 		}
 
 		this.random = function(min, max) {
-			return Math.random() * (max - min + 1) + min;	 	
+			var val = Math.random() * (max - min) + min;
+			return val;
 		}
+
 	}
 
 	api.prototype.number = function() {
 		if(typeof this.logic === 'function') {
 			var value = this.random(this.domainMin, this.domainMax);
 			var y = this.logic(value);
-			return this.scale(this.rangeMin, this.rangeMax, this.min, this.max + 1, y);
+			var result = this.scale(this.rangeMin, this.rangeMax, this.min, this.max + 1, y);
+			if(this.isReverse) {
+				result = this.max - result + this.min + 1;
+			}
+			return result;
 		}
 		else {
-			return this.random(this.min, this.max);
+			return this.random(this.min, this.max + 1);
 		}
 	}
 
@@ -73,26 +79,53 @@
 		this.domainMin = domainMin;
 		this.domainMax = domainMax;
 		this.rangeMin = logic(domainMin);
-		this.rangeMax = logic(domainMax + 1);
+		this.rangeMax = logic(domainMax);
 
 		if(this.rangeMin < 0 || this.rangeMax <= this.rangeMin) throw new Error("Check : logic(domainMin) >= 0 && logic(domainMax) > logic(domainMin)");
 
 		return this;
 	}
 
-	factory.transform = {
-		log : function(a) {
-			return function(x) {
-				return Math.log(x) / Math.log(a);
-			}
-		},
-		log2 : function(x) {
-			return Math.log(x) / Math.log(2);
-		},
-		square: function(x) {
-			return x * x;
-		}
+	api.prototype.reverse = function() {
+		this.isReverse = typeof this.isReverse === 'undefined' ? true : !this.isReverse;
+		return this;
+	}
 
+	api.prototype.slopeTransform = function() {
+		return this.transform(function(x) { return Math.log(x) / Math.log(2); }, 1, 2);
+	}
+
+	api.prototype.slopeReverseTransform = function() {
+		return this.transform(function(x) { return Math.log(x) / Math.log(2); }, 1, 2).reverse();
+	}
+
+	api.prototype.concaveSlopeTransform = function() {
+		return this.transform(function(x) { return Math.sin(x) }, 0, Math.PI / 2);
+	}
+
+	api.prototype.concaveSlopeReverseTransform = function() {
+		return this.transform(function(x) { return Math.sin(x) }, 0, Math.PI / 2).reverse();
+	}
+
+	api.prototype.hourglassTransform = function() {
+		return this.transform(function(x) { return Math.cos(x) + 1 }, Math.PI, Math.PI * 2);
+	}
+
+	api.prototype.dTransform = function() {
+
+		return this.transform(function(x) {
+			if(x <= Math.PI / 2) {
+				return Math.sin(x);
+			}
+			else {
+				return Math.sin(x) * (-1) + 2;
+			}
+		}, 0, Math.PI)
+
+	}
+
+	api.prototype.squareTransform = function() {
+		return this.transform(function(x) { return x * x; }, 0, 2);	
 	}
 
 	return factory;
