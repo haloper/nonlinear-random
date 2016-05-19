@@ -1,5 +1,5 @@
 # random
-Javascript random halper. It's usefull when you want to generate random number log-linearly.
+Javascript random halper. It's usefull when you want to generate random number non-linearly.
 
 ## Basic Sample
 
