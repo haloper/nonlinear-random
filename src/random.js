@@ -107,19 +107,29 @@
 		return this.transform(function(x) { return Math.sin(x) }, 0, Math.PI / 2).reverse();
 	}
 
-	api.prototype.hourglassTransform = function() {
+	api.prototype.ltTransform = function() {
+		return this.transform(function(x) { 
+			if(x <= 1) return Math.pow(2, x); 
+			else return Math.log(x) / Math.log(2) + 2;
+		}, 0, 2);
+	}
+
+	api.prototype.gtTransform = function() {
+		return this.transform(function(x) { 
+			if(x <= 1) return Math.log(x + 1) / Math.log(2); 
+			else return Math.pow(2, x - 1);
+		}, 0, 2);
+	}
+
+	api.prototype.concaveLtTransform = function() {
 		return this.transform(function(x) { return Math.cos(x) + 1 }, Math.PI, Math.PI * 2);
 	}
 
-	api.prototype.dTransform = function() {
+	api.prototype.concaveGtTransform = function() {
 
 		return this.transform(function(x) {
-			if(x <= Math.PI / 2) {
-				return Math.sin(x);
-			}
-			else {
-				return Math.sin(x) * (-1) + 2;
-			}
+			if(x <= Math.PI / 2) return Math.sin(x);
+			else return Math.sin(x) * (-1) + 2;
 		}, 0, Math.PI)
 
 	}

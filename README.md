@@ -136,7 +136,59 @@ number 	: 	count
  20	:	32
 ***/
 
-var ran = Random(1, 20).hourglassTransform();
+var ran = Random(1, 20).ltTransform();
+var number = ran.nextInt();
+/*** Random number count : total 1000
+number 	: 	count
+ 1	:	56
+ 2	:	59
+ 3	:	65
+ 4	:	60
+ 5	:	67
+ 6	:	38
+ 7	:	35
+ 8	:	41
+ 9	:	36
+ 10	:	38
+ 11	:	38
+ 12	:	42
+ 13	:	36
+ 14	:	40
+ 15	:	42
+ 16	:	50
+ 17	:	54
+ 18	:	71
+ 19	:	67
+ 20	:	65
+***/
+
+var ran = Random(1, 20).gtTransform();
+var number = ran.nextInt();
+/*** Random number count : total 1000
+number 	: 	count
+ 1	:	33
+ 2	:	39
+ 3	:	48
+ 4	:	46
+ 5	:	49
+ 6	:	52
+ 7	:	54
+ 8	:	48
+ 9	:	64
+ 10	:	52
+ 11	:	67
+ 12	:	56
+ 13	:	63
+ 14	:	52
+ 15	:	46
+ 16	:	66
+ 17	:	44
+ 18	:	43
+ 19	:	40
+ 20	:	38
+***/
+
+var ran = Random(1, 20).concaveLtTransform();
 var number = ran.nextInt();
 /*** Random number count : total 1000
 number 	: 	count
@@ -162,7 +214,7 @@ number 	: 	count
  20	:	156
 ***/
 
-var ran = Random(1, 20).dTransform();
+var ran = Random(1, 20).concaveGtTransform();
 var number = ran.nextInt();
 /*** Random number count : total 1000
 number 	: 	count

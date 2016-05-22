@@ -84,21 +84,38 @@ describe("Random", function() {
 			// showMap(map);
 		});
 
-		it("Get random from hourglass transform", function() {
-			var ran = Random(1, 20).hourglassTransform();
+		it("Get random from lt transform", function() {
+			var ran = Random(1, 20).ltTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
+				&& map[10] < map[20] && map[10] < map[1]).toBe(true);
+			showMap(map);
+		});
+
+		it("Get random from gt transform", function() {
+			var ran = Random(1, 20).gtTransform();
+			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
+			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
+				&& map[10] > map[20] && map[10] > map[1]).toBe(true);
+			showMap(map);
+		});
+
+		it("Get random from concave lt transform", function() {
+			var ran = Random(1, 20).concaveLtTransform();
 			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
 			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
 				&& map[10] < map[20] && map[10] < map[1]).toBe(true);
 			// showMap(map);
 		});
 
-		it("Get random from d transform", function() {
-			var ran = Random(1, 20).dTransform();
+		it("Get random from concave gt transform", function() {
+			var ran = Random(1, 20).concaveGtTransform();
 			var map = repeatToMap(function() { return ran.nextInt(); }, 1000);
 			expect(map[1] > 0 && map[10] > 0 && map[20] > 0 
 				&& map[10] > map[20] && map[10] > map[1]).toBe(true);
 			// showMap(map);
 		});
+
 
 
 
