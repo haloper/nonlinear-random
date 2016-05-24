@@ -29,6 +29,9 @@
 		this.min = min;
 		this.max = max;
 
+		//Adjust scale of result
+		//xMin -> yMin, xMax -> yMax
+		//value(xMin ~ xMax) -> result(yMin, yMax)
 		this.scale = function(xMin, xMax, yMin, yMax, value) {
 
 			//check arguments
@@ -40,6 +43,7 @@
 
 		}
 
+		//return float random number between min and max
 		this.random = function(min, max) {
 			var val = Math.random() * (max - min) + min;
 			return val;
@@ -47,6 +51,7 @@
 
 	}
 
+	//return float randome number transformed by logic
 	api.prototype.number = function() {
 		if(typeof this.logic === 'function') {
 			var value = this.random(this.domainMin, this.domainMax);
@@ -62,14 +67,18 @@
 		}
 	}
 
+	//get next float random number
 	api.prototype.next = function() {
 		return this.number();
 	}
 
+	//get next integer random number
 	api.prototype.nextInt = function() {
 		return Math.floor(this.number());
 	}
 
+	//set transform logic
+	//logic is a graph, and domain is the range of the graph
 	api.prototype.transform = function(logic, domainMin, domainMax) {
 
 		//check arguments
@@ -86,27 +95,33 @@
 		return this;
 	}
 
+	//reverse result
 	api.prototype.reverse = function() {
 		this.isReverse = typeof this.isReverse === 'undefined' ? true : !this.isReverse;
 		return this;
 	}
 
+	//Bigger values will be appeared more than smaller values.
 	api.prototype.slopeTransform = function() {
 		return this.transform(function(x) { return Math.log(x) / Math.log(2); }, 1, 2);
 	}
 
+	//Smaller values will be appeared more than bigger values.
 	api.prototype.slopeReverseTransform = function() {
 		return this.transform(function(x) { return Math.log(x) / Math.log(2); }, 1, 2).reverse();
 	}
 
+	//Bigger values will be sharply appeared more than smaller values.
 	api.prototype.concaveSlopeTransform = function() {
 		return this.transform(function(x) { return Math.sin(x) }, 0, Math.PI / 2);
 	}
 
+	//Smaller values will be sharply appeared more than bigger values.
 	api.prototype.concaveSlopeReverseTransform = function() {
 		return this.transform(function(x) { return Math.sin(x) }, 0, Math.PI / 2).reverse();
 	}
 
+	//Edge values will be appeared more than middle values.
 	api.prototype.ltTransform = function() {
 		return this.transform(function(x) { 
 			if(x <= 1) return Math.pow(2, x); 
@@ -114,6 +129,7 @@
 		}, 0, 2);
 	}
 
+	//Middle values will be appeared more than edge values.
 	api.prototype.gtTransform = function() {
 		return this.transform(function(x) { 
 			if(x <= 1) return Math.log(x + 1) / Math.log(2); 
@@ -121,10 +137,12 @@
 		}, 0, 2);
 	}
 
+	//Edge values will be sharply appeared more than middle values.
 	api.prototype.concaveLtTransform = function() {
 		return this.transform(function(x) { return Math.cos(x) + 1 }, Math.PI, Math.PI * 2);
 	}
 
+	//Middle values will be sharply appeared more than edge values.
 	api.prototype.concaveGtTransform = function() {
 
 		return this.transform(function(x) {
@@ -132,10 +150,6 @@
 			else return Math.sin(x) * (-1) + 2;
 		}, 0, Math.PI)
 
-	}
-
-	api.prototype.squareTransform = function() {
-		return this.transform(function(x) { return x * x; }, 0, 2);	
 	}
 
 	return factory;
