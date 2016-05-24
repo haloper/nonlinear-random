@@ -1,10 +1,10 @@
-# random
+# nonlinear random
 Javascript random halper. It's usefull when you want to generate random number non-linearly.
 
 ## Basic Sample
 
 ```javascript
-var Random = window.Random.noConflict();
+var Random = window.NonlinearRandom.noConflict();
 
 var ran = Random(1, 20); // Generate random number lineary 1 <= x <=20
 var number = ran.nextInt();
