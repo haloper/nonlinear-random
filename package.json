@@ -1,12 +1,12 @@
 {
-  "name": "log-random",
+  "name": "nonlinear-random",
   "version": "0.0.1",
-  "description": "Random with log",
-  "main": "src/log-random.js",
+  "description": "Nonlinear random generator",
+  "main": "src/nonlinear-random.js",
   "keywords": [
     "random",
     "math",
-    "log"
+    "nonlinear"
   ],
   "maintainers": [
     {

@@ -1,5 +1,5 @@
 describe("Random", function() {
-	var Random = window.Random.noConflict();
+	var Random = window.NonlinearRandom.noConflict();
 	
 	describe("Basic Test", function() {
 		beforeEach(function() {

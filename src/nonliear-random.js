@@ -1,6 +1,6 @@
 /*!
- * JavaScript Log Random
- * https://github.com/haloper/js-object-wrapper
+ * JavaScript Nonlinear Random
+ * https://github.com/haloper/nonlinear-random
  *
  * Released under the MIT license
  */
@@ -9,11 +9,11 @@
 	if (typeof define === 'function' && define.amd) define(factory); //for AMD(RequireJS)
 	else if (typeof exports === 'object') module.exports = factory(); //for CommonJS
 	else {
-		var oldRandom = window.Random;
-		var random = window.Random = factory();
+		var oldRandom = window.NonlinearRandom;
+		var random = window.NonlinearRandom = factory();
 
 		random.noConflict = function () {
-			window.Random = oldRandom;
+			window.NonlinearRandom = oldRandom;
 			return random;
 		};
 	}
@@ -132,10 +132,6 @@
 			else return Math.sin(x) * (-1) + 2;
 		}, 0, Math.PI)
 
-	}
-
-	api.prototype.squareTransform = function() {
-		return this.transform(function(x) { return x * x; }, 0, 2);	
 	}
 
 	return factory;
